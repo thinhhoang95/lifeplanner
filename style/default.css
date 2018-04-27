@@ -1,0 +1,210 @@
+html,body{
+    font-family: 'Roboto', sans-serif;
+    line-height: 27px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #212121;
+    width: 100%;
+    align-content: stretch;
+}
+/* HEADER */
+@media screen and (max-width:500px)
+{
+    .header
+    {
+        background-color: #1976D2;
+        color: #FFF;
+        width: calc(100% - 48px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        -webkit-box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.25);
+        -moz-box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.25);
+        box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.25);
+        padding-left: 24px;
+        padding-right: 24px;
+        margin-bottom: 0px;
+        position: relative;
+    }
+}
+@media screen and (min-width:500px)
+{
+    .header
+    {
+        background-color: #1976D2;
+        color: #FFF;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        -webkit-box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.25);
+        -moz-box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.25);
+        box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.25);
+        position: fixed;
+        right: 0;
+    }
+}
+
+.header .wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1010px;
+    padding-top: 24px;
+}
+.header .wrapper>div{
+    display: flex;
+    flex-direction: row;
+}
+.header .navigation_tabs{
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+}
+.header .navigation_tabs .tab{
+    width: 120px;
+    text-align: center;
+    padding-bottom: 12px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.header .navigation_tabs .tab.active{
+    border-bottom: solid 3px #FFF;
+    opacity: 1;
+}
+.header .logo
+{
+    font-family: 'Product Sans', Arial, sans-serif;
+    font-size: 24px;
+}
+/* MAIN PAGE */
+@media screen and (max-width: 500px)
+{
+    .main_page
+    {
+        width: calc(100% - 48px);
+        max-width: 1010px;
+        display: flex;
+        flex-direction: column;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    .account_name
+    {
+        display: none;
+    }
+    .bypass
+    {
+        display: none;
+    }
+}
+@media screen and (min-width: 500px)
+{
+    .main_page
+    {
+        margin-top: 150px;
+        width: 100%;
+        max-width: 1010px;
+        display: flex;
+        flex-direction: column;
+    }
+    .account_name
+    {
+        display: flex;
+    }
+
+}
+
+.abypass
+{
+    display: none;
+}
+
+/* TEXT PRESENTATION */
+h1
+{
+    font-weight: bold;
+    font-size: 14pt;
+    color: #1976D2;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    text-transform: uppercase;
+}
+/* TABLE */
+table
+{
+    width: 100%;
+}
+table td
+{
+    border: solid 1px #E0E0E0;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    column-span: 1;
+    row-span: 1;
+}
+.title td{
+    background-color: #1976D2;
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+/* FORM COMPONENTS */
+.form_entry
+{
+    padding-bottom: 24px;
+}
+.form_entry>div
+{
+    font-weight: bold;
+}
+select,input,textarea {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    box-sizing : border-box;
+    max-width: 500px;
+}
+
+.submit_button{
+    padding: 8px;
+    background-color: #1976D2;
+    color: #FFF;
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.submit_button:active{
+    background-color: #184f9f;
+}
+
+/* NOTIFICATIONS */
+.toast
+{
+    height:auto;
+    position: fixed;
+    left:50%;
+    transform: translateX(-50%);
+    bottom: 28px;
+    background-color: #383838;
+    color: #F0F0F0;
+    font-size: 12pt;
+    padding: 10px;
+    text-align:center;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+
+a{
+    text-decoration: none;
+    color: #1976D2;
+}
