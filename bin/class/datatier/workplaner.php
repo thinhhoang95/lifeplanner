@@ -66,8 +66,9 @@ class workplaner
 		$wp = $this->findWorkPlanById($wp_id);
 		$workload_id = $wp->workload_id;
 		$mission = $wp->mission;
-		$registration_date = $wp->registration_date;
-		$this->Db->query("INSERT INTO workplan (workload_id, time_units, registration_date, completion_status, completion_date, mission) VALUES ('$workload_id','1','$registration_date','1','$date','$mission')");
+        $registration_date = $wp->registration_date;
+        $time_units = $wp->time_units;
+		$this->Db->query("INSERT INTO workplan (workload_id, time_units, registration_date, completion_status, completion_date, mission) VALUES ('$workload_id','$time_units','$registration_date','1','$date','$mission')");
     }
 
     public function lastWeekWorkplanBuild()

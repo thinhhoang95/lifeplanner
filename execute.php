@@ -199,22 +199,45 @@
     }
     function doneWorkplan(id,element)
     {
-        $.ajax("bin/action/finish_workplan.php?id="+id).done(function(data){
-            if(data=="OK") {
-                var hosttr = element.parent().parent();
-                var idx = hosttr.find("#id").html();
-                var work_name = hosttr.find("#work_name").html();
-                var reg_date = hosttr.find("#reg_date").html();
-                var time_units = hosttr.find("#time_units").html();
-                var insert_tag = "<tr><td class='abypass'>" + idx + "</td><td>" + work_name + "</td><td>" + time_units + "</td><td>" + reg_date + "</td></tr>";
-                $("#recently_registered").append(insert_tag);
-                // hosttr.remove();
-                location.reload();
-                showToast("Thành công!");
-            } else {
-                alert("Lỗi xảy ra: "+data+". Vui lòng thử lại sau!");
-            }
-        });
+        $.ajax({
+            url: "http://localhost:3001/?id="+id,
+            crossDomain:true,
+            dataType : 'jsonp'}).done(function(data){
+                console.log('Data query complete ' + data);
+                $.ajax("bin/action/finish_workplan.php?id="+id).done(function(data){
+                if(data=="OK") {
+                    var hosttr = element.parent().parent();
+                    var idx = hosttr.find("#id").html();
+                    var work_name = hosttr.find("#work_name").html();
+                    var reg_date = hosttr.find("#reg_date").html();
+                    var time_units = hosttr.find("#time_units").html();
+                    var insert_tag = "<tr><td class='abypass'>" + idx + "</td><td>" + work_name + "</td><td>" + time_units + "</td><td>" + reg_date + "</td></tr>";
+                    $("#recently_registered").append(insert_tag);
+                    // hosttr.remove();
+                    location.reload();
+                    showToast("Thành công!");
+                } else {
+                    alert("Lỗi xảy ra: "+data+". Vui lòng thử lại sau!");
+                }
+            });
+        }).error(function(){
+            $.ajax("bin/action/finish_workplan.php?id="+id).done(function(data){
+                if(data=="OK") {
+                    var hosttr = element.parent().parent();
+                    var idx = hosttr.find("#id").html();
+                    var work_name = hosttr.find("#work_name").html();
+                    var reg_date = hosttr.find("#reg_date").html();
+                    var time_units = hosttr.find("#time_units").html();
+                    var insert_tag = "<tr><td class='abypass'>" + idx + "</td><td>" + work_name + "</td><td>" + time_units + "</td><td>" + reg_date + "</td></tr>";
+                    $("#recently_registered").append(insert_tag);
+                    // hosttr.remove();
+                    location.reload();
+                    showToast("Thành công!");
+                } else {
+                    alert("Lỗi xảy ra: "+data+". Vui lòng thử lại sau!");
+                }
+            });
+        });;
     }
 </script>
 
