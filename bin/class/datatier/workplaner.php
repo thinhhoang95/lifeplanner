@@ -35,6 +35,18 @@ class workplaner
         return $wp;
     }
 
+    public function minusTuFromInbox($id, $tu)
+    {
+        $wp = $this->findWorkPlanById($id);
+        $wp->time_units = $wp->time_units - $tu;
+        if ($wp->time_units <= 0)
+        {
+            $this->deleteWorkplan($id);
+        } else {
+            $result = $this->Db->query("UPDATE inbox SET time_units = '".$wp->time_units."' WHERE id = ".$id);
+        }
+    }
+
     private function workplanBuilder($sql)
     {
         $obj = $this->Db->fetchSQL($sql);
@@ -58,7 +70,7 @@ class workplaner
         return $this->workplanBuilder("SELECT inbox.*,workload.work_name FROM inbox,workload WHERE workload.id=inbox.workload_id AND inbox.completion_status='0' ORDER BY inbox.id DESC LIMIT 20");
     }
     
-    public function completeWorkplan($wp_id)
+    public function completeWorkplan($wp_id,$tu)
     {
         $date = date("Y-m-d H:i:s");
 		$now = $date;
@@ -67,8 +79,10 @@ class workplaner
 		$workload_id = $wp->workload_id;
 		$mission = $wp->mission;
         $registration_date = $wp->registration_date;
-        $time_units = $wp->time_units;
-		$this->Db->query("INSERT INTO workplan (workload_id, time_units, registration_date, completion_status, completion_date, mission) VALUES ('$workload_id','$time_units','$registration_date','1','$date','$mission')");
+        // $time_units = $wp->time_units;
+        $time_units = $tu;
+        $this->Db->query("INSERT INTO workplan (workload_id, time_units, registration_date, completion_status, completion_date, mission) VALUES ('$workload_id','$time_units','$registration_date','1','$date','$mission')");
+        $this->minusTuFromInbox($wp_id,$tu);
     }
 
     public function lastWeekWorkplanBuild()

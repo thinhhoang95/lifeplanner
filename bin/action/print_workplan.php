@@ -6,6 +6,8 @@
  * Time: 21:11
  */
 
+error_reporting(0);
+
 require_once "../../tcpdf/tcpdf.php";
 require_once "../../tcpdf/tcpdf_barcodes_1d.php";
 
@@ -111,7 +113,7 @@ $pdf->lastPage();
 
 $pdf->setPage(1);
 $pdf->setXY(15,15);
-$pdf->write1DBarcode($printCode, 'C128', '','','40','10');
+// $pdf->write1DBarcode($printCode, 'C128', '','','40','10');
 
 $pdf->Output('workplan.pdf', 'I');
 

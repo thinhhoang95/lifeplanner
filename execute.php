@@ -95,7 +95,7 @@
         $listOfPlans = $workplaner->workplanUnfinishedBuild();
         foreach ($listOfPlans as $item) {
             echo "<tr>";
-            echo "<td id='id' class='abypass'>" . $item->id . "</td><td id='work_name' style='font-weight: bold; color: #E91E63'>" . $item->work_name . "</td><td id='time_units'>" . $item->time_units . "</td><td id='reg_date'>" . time_elapsed_string($item->registration_date,false) . "</td><td>" . "<div class='actbtn green' data-id='".$item->id."'>DONE</div><div class='actbtn red' data-id='".$item->id."'>DELETE</div>" . "</td>";
+            echo "<td id='id' class='abypass'>" . $item->id . "</td><td id='work_name' style='font-weight: bold; color: #E91E63'>" . $item->work_name . "</td><td id='time_units'><input type='text' id='input_time_units' data-id='".$item->id."' value='". $item->time_units ."'/></td><td id='reg_date'>" . time_elapsed_string($item->registration_date,false) . "</td><td>" . "<div class='actbtn green' data-id='".$item->id."'>DONE</div><div class='actbtn red' data-id='".$item->id."'>DELETE</div>" . "</td>";
             echo "</tr>";
             echo "<tr>";
             echo "<td colspan='4'>".str_replace(PHP_EOL,"<br>",$item->mission)."</td>";
@@ -199,45 +199,24 @@
     }
     function doneWorkplan(id,element)
     {
-        $.ajax({
-            url: "http://localhost:3001/?id="+id,
-            crossDomain:true,
-            dataType : 'jsonp'}).done(function(data){
-                console.log('Data query complete ' + data);
-                $.ajax("bin/action/finish_workplan.php?id="+id).done(function(data){
-                if(data=="OK") {
-                    var hosttr = element.parent().parent();
-                    var idx = hosttr.find("#id").html();
-                    var work_name = hosttr.find("#work_name").html();
-                    var reg_date = hosttr.find("#reg_date").html();
-                    var time_units = hosttr.find("#time_units").html();
-                    var insert_tag = "<tr><td class='abypass'>" + idx + "</td><td>" + work_name + "</td><td>" + time_units + "</td><td>" + reg_date + "</td></tr>";
-                    $("#recently_registered").append(insert_tag);
-                    // hosttr.remove();
-                    location.reload();
-                    showToast("Thành công!");
-                } else {
-                    alert("Lỗi xảy ra: "+data+". Vui lòng thử lại sau!");
-                }
-            });
-        }).error(function(){
-            $.ajax("bin/action/finish_workplan.php?id="+id).done(function(data){
-                if(data=="OK") {
-                    var hosttr = element.parent().parent();
-                    var idx = hosttr.find("#id").html();
-                    var work_name = hosttr.find("#work_name").html();
-                    var reg_date = hosttr.find("#reg_date").html();
-                    var time_units = hosttr.find("#time_units").html();
-                    var insert_tag = "<tr><td class='abypass'>" + idx + "</td><td>" + work_name + "</td><td>" + time_units + "</td><td>" + reg_date + "</td></tr>";
-                    $("#recently_registered").append(insert_tag);
-                    // hosttr.remove();
-                    location.reload();
-                    showToast("Thành công!");
-                } else {
-                    alert("Lỗi xảy ra: "+data+". Vui lòng thử lại sau!");
-                }
-            });
-        });;
+        var hosttr = element.parent().parent();
+        var tu = hosttr.find("#input_time_units").val();
+        console.log('Time units are: ' + tu);
+        $.ajax("bin/action/finish_workplan.php?id="+id+"&timeunits="+tu).done(function(data){
+            if(data=="OK") {
+                var idx = hosttr.find("#id").html();
+                var work_name = hosttr.find("#work_name").html();
+                var reg_date = hosttr.find("#reg_date").html();
+                var time_units = tu;
+                var insert_tag = "<tr><td class='abypass'>" + idx + "</td><td>" + work_name + "</td><td>" + time_units + "</td><td>" + reg_date + "</td></tr>";
+                $("#recently_registered").append(insert_tag);
+                // hosttr.remove();
+                location.reload();
+                showToast("Thành công!");
+            } else {
+                alert("Lỗi xảy ra: "+data+". Vui lòng thử lại sau!");
+            }
+        });
     }
 </script>
 
