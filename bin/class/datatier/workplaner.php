@@ -90,10 +90,11 @@ class workplaner
         return $this->workplanBuilder("SELECT workplan.*,workload.work_name FROM workplan,workload WHERE workload.id=workplan.workload_id AND workplan.completion_status='1' AND WEEKOFYEAR(workplan.completion_date)=WEEKOFYEAR(NOW())-1 ORDER BY workplan.id DESC LIMIT 150");
     }
 
-    public function thisWeekWorkplanBuild()
+    public function todayWorkPlanBuild()
     {
-        return $this->workplanBuilder("SELECT workplan.*,workload.work_name FROM workplan,workload WHERE workload.id=workplan.workload_id AND workplan.completion_status='1' AND WEEKOFYEAR(workplan.completion_date)=WEEKOFYEAR(NOW()) ORDER BY workplan.id DESC LIMIT 150");
+        return $this->workplanBuilder("SELECT workplan.*,workload.work_name FROM workplan,workload WHERE workload.id=workplan.workload_id AND workplan.completion_status='1' AND DAY(workplan.completion_date)=DAY(NOW()) AND MONTH(workplan.completion_date)=MONTH(NOW()) AND YEAR(workplan.completion_date)=YEAR(NOW()) ORDER BY workplan.id DESC LIMIT 150");
     }
+
 
     public function statsLastWeekBuild()
     {

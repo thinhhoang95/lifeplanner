@@ -39,6 +39,9 @@ $workloader = new \datatier\workloader();
             <div>
                 <input type="number" name="total_time_units" />
             </div>
+            <div>
+                <span style="font-weight: 500">Nhập số lớn hơn 2000 nếu không xác định số tiết.
+            </div>
         </div>
         <div class="form_entry">
             <div>Số tiết trên tuần</div>

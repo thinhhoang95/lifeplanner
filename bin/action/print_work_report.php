@@ -64,7 +64,7 @@ $printCode=substr(md5(date('d/m/Y H:i:s')),strlen(date('d/m/Y H:i:s')-5),5);
 
 $html = '
 <div style="text-align: center; font-weight: bold">THE LIFEPLANNER PROGRAM<br>
-WORKPLAN REGISTRATION SHEET</div>
+CERTIFICATE OF WORK COMPLETION</div>
 <div></div>
 <table>
 <tr><td>Name: <span style="font-weight: bold">HOANG DINH THINH</span></td><td>Student ID: <span style="font-weight: bold">41303880</span></td></tr>
@@ -77,7 +77,7 @@ WORKPLAN REGISTRATION SHEET</div>
 
 include_once "../../bin/class/datatier/workplaner.php";
 $workplaner = new \datatier\workplaner();
-$listOfPlans = $workplaner->thisWeekWorkplanBuild();
+$listOfPlans = $workplaner->todayWorkPlanBuild();
 foreach ($listOfPlans as $item) {
     $html.= '<tr>';
     $html.= '<td id="work_name" style="font-style: italic; font-weight: bold">' . $item->work_name . '</td><td id="time_units">' . $item->time_units . '</td><td id="reg_date">' . $item->completion_date . '</td>';
@@ -89,17 +89,18 @@ foreach ($listOfPlans as $item) {
 
 $html.='</table>';
 $html.='<p></p>';
-$html.='
+/*$html.='
 <table cellspacing="0" cellpadding="1" border="1">
 <tr style="font-weight: bold"><td width="50%">Subject</td><td width="25%">Remaining units of week</td><td width="25%">Total units of week</td></tr>
 ';
-$listOfStats = $workplaner->statsThisWeekBuild();
+$listOfStats = $workplaner->statsLastWeekBuild();
 foreach ($listOfStats as $item) {
     $html.= '<tr>';
     $html.= '<td style="font-style: italic; font-weight: bold">' . $item["work_name"] . '</td><td>' . $item["remaining_units_in_week"] . '</td><td>' . $item["units_per_week"] . '</td>';
     $html.= "</tr>";
 }
-$html.='</table>';
+$html.='</table>';*/
+
 $html.='
 <div></div>
 <div align="right">Signature of participant</div>

@@ -58,6 +58,20 @@ class workloader
         return $arr;
     }
 
+    public function workLoadDailyBuild()
+    {
+        $sql="SELECT workload.id,workload.work_name,workload.work_description,(workload.total_time_units-(SELECT COALESCE(SUM(workplan.time_units),0) FROM workplan WHERE workplan.completion_status=1 AND workplan.workload_id=workload.id)) AS remaining_units, IF((workload.total_time_units-(SELECT COALESCE(SUM(workplan.time_units),0) FROM workplan WHERE workplan.completion_status=1 AND workplan.workload_id=workload.id))>=0,LEAST((workload.units_per_week-(SELECT COALESCE(SUM(workplan.time_units),0) FROM workplan WHERE WEEKOFYEAR(workplan.completion_date)=WEEKOFYEAR(NOW()) AND workplan.completion_status=1 AND workload_id=workload.id)),(workload.total_time_units-(SELECT COALESCE(SUM(workplan.time_units),0) FROM workplan WHERE workplan.completion_status=1 AND workplan.workload_id=workload.id))),0) AS remaining_units_in_week FROM workload WHERE workload.active='1'";
+        $obj=Dbhelper::fetchSQL($sql);
+        $arr = [];
+        foreach($obj as $item)
+        {
+            $wl=new workloadStats();
+            $wl->initWithObj($item);
+            $arr[]=$wl;
+        }
+        return $arr;
+    }
+
     public function registerWorkload($workload_id, $time_units, $mission) // Workplan
     {
         $date = date("Y-m-d H:i:s");

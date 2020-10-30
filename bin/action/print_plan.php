@@ -72,35 +72,38 @@ WORKPLAN REGISTRATION SHEET</div>
 </table>
 <div></div>
 <table cellspacing="0" cellpadding="1" border="1">
-<tr style="font-weight: bold"><td width="50%">Subject</td><td width="10%">Units</td><td width="40%">Completion date</td></tr>
+<tr style="font-weight: bold"><td width="90%">Subject</td><td width="10%">Units remaining</td></tr>
 ';
 
 include_once "../../bin/class/datatier/workplaner.php";
+include_once "../../bin/class/datatier/workloader.php";
 $workplaner = new \datatier\workplaner();
-$listOfPlans = $workplaner->lastWeekWorkplanBuild();
+$workloader = new \datatier\workloader();
+$listOfPlans = $workplaner->workplanUnfinishedBuild();
+# $listOfPlans = $workloader->workLoadWeekBuild();
+
 foreach ($listOfPlans as $item) {
     $html.= '<tr>';
-    $html.= '<td id="work_name" style="font-style: italic; font-weight: bold">' . $item->work_name . '</td><td id="time_units">' . $item->time_units . '</td><td id="reg_date">' . $item->completion_date . '</td>';
+    $html.= '<td id="work_name" style="font-style: italic; font-weight: bold">' . $item->work_name . '</td><td id="time_units">' . $item->time_units . '</td>';
     $html.= "</tr>";
     $html.= "<tr>";
-    $html.= '<td colspan="3">'.str_replace(PHP_EOL,'<br>',$item->mission).'</td>';
+    $html.= '<td colspan="2">'.'<span style="font-weight: bold">Reg. date: '.$item->registration_date.'</span><br>'.str_replace(PHP_EOL,'<br>',$item->mission).'</td>';
     $html.= "</tr>";
 }
 
 $html.='</table>';
 $html.='<p></p>';
-/*$html.='
+$html.='
 <table cellspacing="0" cellpadding="1" border="1">
 <tr style="font-weight: bold"><td width="50%">Subject</td><td width="25%">Remaining units of week</td><td width="25%">Total units of week</td></tr>
 ';
-$listOfStats = $workplaner->statsLastWeekBuild();
+$listOfStats = $workplaner->statsThisWeekBuild();
 foreach ($listOfStats as $item) {
     $html.= '<tr>';
     $html.= '<td style="font-style: italic; font-weight: bold">' . $item["work_name"] . '</td><td>' . $item["remaining_units_in_week"] . '</td><td>' . $item["units_per_week"] . '</td>';
     $html.= "</tr>";
 }
-$html.='</table>';*/
-
+$html.='</table>';
 $html.='
 <div></div>
 <div align="right">Signature of participant</div>
