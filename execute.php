@@ -98,7 +98,7 @@
             echo "<td id='id' class='abypass'>" . $item->id . "</td><td id='work_name' style='font-weight: bold; color: #E91E63'>" . $item->work_name . "</td><td id='time_units'><input type='text' id='input_time_units' data-id='".$item->id."' value='". $item->time_units ."'/></td><td id='reg_date'>" . time_elapsed_string($item->registration_date,false) . "</td><td>" . "<div class='actbtn green' data-id='".$item->id."'>DONE</div><div class='actbtn red' data-id='".$item->id."'>DELETE</div>" . "</td>";
             echo "</tr>";
             echo "<tr>";
-            echo "<td colspan='4'>".str_replace(PHP_EOL,"<br>",$item->mission)."</td>";
+            echo "<td colspan='4'><input type='text' style='width: 100%' id='input_mission' data-id='".$item->id."' value='".$item->mission."'/></td>";
             echo "</tr>";
         }
         ?>
@@ -202,7 +202,8 @@
         var hosttr = element.parent().parent();
         var tu = hosttr.find("#input_time_units").val();
         console.log('Time units are: ' + tu);
-        $.ajax("bin/action/finish_workplan.php?id="+id+"&timeunits="+tu).done(function(data){
+        var mission = hosttr.next().find("#input_mission").val();
+        $.ajax("bin/action/finish_workplan.php?id="+id+"&timeunits="+tu+"&mission="+encodeURIComponent(mission)).done(function(data){
             if(data=="OK") {
                 var idx = hosttr.find("#id").html();
                 var work_name = hosttr.find("#work_name").html();

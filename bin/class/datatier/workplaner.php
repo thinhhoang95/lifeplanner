@@ -70,14 +70,20 @@ class workplaner
         return $this->workplanBuilder("SELECT inbox.*,workload.work_name FROM inbox,workload WHERE workload.id=inbox.workload_id AND inbox.completion_status='0' ORDER BY inbox.id DESC LIMIT 20");
     }
     
-    public function completeWorkplan($wp_id,$tu)
+    public function completeWorkplan($wp_id,$tu,$ms)
     {
         $date = date("Y-m-d H:i:s");
 		$now = $date;
         //$this->Db->query("UPDATE inbox SET completion_status='1', completion_date='$now' WHERE id='$wp_id'");
 		$wp = $this->findWorkPlanById($wp_id);
-		$workload_id = $wp->workload_id;
-		$mission = $wp->mission;
+        $workload_id = $wp->workload_id;
+        if (isset($ms))
+        {
+            $mission = $ms;
+        } else
+        {
+		    $mission = $wp->mission;
+        }
         $registration_date = $wp->registration_date;
         // $time_units = $wp->time_units;
         $time_units = $tu;

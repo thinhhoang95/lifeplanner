@@ -12,11 +12,12 @@ include_once "../class/notifier.php";
 
 $id=$_GET["id"];
 $tu=$_GET["timeunits"];
+$mission = $_GET["mission"];
 
 $workplaner = new \datatier\workplaner();
 $workloader = new \datatier\workloader();
 
-$workplaner->completeWorkplan($id,$tu); // Add user-specified time units to the registry
+$workplaner->completeWorkplan($id,$tu,$mission); // Add user-specified time units to the registry
 
 /*$wp = $workplaner->findWorkPlanById($id);
 $wl = $workloader->getWorkloadById($wp->workload_id);
