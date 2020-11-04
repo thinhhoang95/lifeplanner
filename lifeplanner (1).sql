@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2020 at 11:36 PM
+-- Generation Time: Nov 04, 2020 at 08:49 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -42,9 +42,29 @@ CREATE TABLE `inbox` (
 --
 
 INSERT INTO `inbox` (`id`, `workload_id`, `time_units`, `registration_date`, `completion_status`, `completion_date`, `mission`) VALUES
-(9, 1, 4, '2020-10-30 23:22:25', 0, '0000-00-00 00:00:00', 'Lecture 2 https://tinyurl.com/y2j6j4ac'),
-(10, 3, 3, '2020-10-30 23:22:48', 0, '0000-00-00 00:00:00', 'Chapter 2 YouTube videos'),
-(11, 2, 4, '2020-10-30 23:23:14', 0, '0000-00-00 00:00:00', 'Recitation and Homework for Chapter 1');
+(22, 5, 4, '2020-11-04 13:52:10', 0, '0000-00-00 00:00:00', 'Modeling the problem'),
+(23, 2, 3, '2020-11-04 13:52:20', 0, '0000-00-00 00:00:00', 'Lecture 2'),
+(24, 4, 3, '2020-11-04 13:54:07', 0, '0000-00-00 00:00:00', 'Auction algorithm');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `punchcards`
+--
+
+CREATE TABLE `punchcards` (
+  `time` datetime NOT NULL,
+  `duration` text COLLATE utf8_unicode_ci NOT NULL,
+  `paid` double NOT NULL,
+  `taskname` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `punchcards`
+--
+
+INSERT INTO `punchcards` (`time`, `duration`, `paid`, `taskname`) VALUES
+('2020-11-04 12:20:00', '00:17', 0.33716668287913, 'ANITI Research');
 
 -- --------------------------------------------------------
 
@@ -80,9 +100,10 @@ INSERT INTO `workload` (`id`, `work_name`, `work_description`, `total_time_units
 (2, 'Advanced Probability Theory', 'Course by Olivier', 9999, 16, 1),
 (3, 'Multi-target Tracking', 'Course by Svensson', 9999, 12, 1),
 (4, 'Literature Review (CP)', 'Collective Perception', 9999, 8, 1),
-(5, 'Algorithm Design', 'The real problem', 9999, 16, 0),
+(5, 'Algorithm Design', 'The real problem', 9999, 16, 1),
 (6, 'Literature Review (Tracking)', 'Advances in the field', 9999, 8, 1),
-(7, 'Experimental Logistics', 'Installing software, following tutorials', 9999, 9, 1);
+(7, 'Experimental Logistics', 'Installing software, following tutorials', 9999, 9, 1),
+(8, 'French Practice', 'Communication in French', 9999, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -99,6 +120,22 @@ CREATE TABLE `workplan` (
   `completion_date` datetime NOT NULL,
   `mission` mediumtext COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `workplan`
+--
+
+INSERT INTO `workplan` (`id`, `workload_id`, `time_units`, `registration_date`, `completion_status`, `completion_date`, `mission`) VALUES
+(1, 1, 1, '2020-10-30 23:22:25', 1, '2020-10-31 15:52:21', 'Lecture 2 https://tinyurl.com/y2j6j4ac'),
+(2, 1, 1, '2020-10-30 23:22:25', 1, '2020-10-31 18:04:23', 'Lecture 2 https://tinyurl.com/y2j6j4ac'),
+(3, 1, 1, '2020-10-30 23:22:25', 1, '2020-10-31 18:31:06', 'Lecture 2 https://tinyurl.com/y2j6j4ac'),
+(8, 1, 1, '2020-10-30 23:22:25', 1, '2020-10-31 20:48:39', 'Lecture 2 https://tinyurl.com/y2j6j4ac'),
+(9, 2, 1, '2020-10-31 20:46:41', 1, '2020-11-01 11:11:08', 'Recitation of old materials'),
+(10, 2, 1, '2020-10-31 20:46:41', 1, '2020-11-01 11:44:00', 'Recitation and Homework'),
+(11, 2, 1, '2020-10-31 20:46:41', 1, '2020-11-01 12:11:34', 'Recitation and Homework'),
+(12, 2, 1, '2020-10-31 20:46:41', 1, '2020-11-01 21:20:10', 'Recitation and Homework'),
+(13, 2, 1, '2020-11-01 22:24:25', 1, '2020-11-01 22:24:29', 'Homework'),
+(14, 7, 1, '2020-10-31 23:19:31', 1, '2020-11-01 23:08:04', 'Prepare for the simulations');
 
 --
 -- Indexes for dumped tables
@@ -138,19 +175,19 @@ ALTER TABLE `workplan`
 -- AUTO_INCREMENT for table `inbox`
 --
 ALTER TABLE `inbox`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `workload`
 --
 ALTER TABLE `workload`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `workplan`
 --
 ALTER TABLE `workplan`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
